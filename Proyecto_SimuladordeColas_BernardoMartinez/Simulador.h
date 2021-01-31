@@ -551,7 +551,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 		}else if (estado == "CERRADO") {
 			server->BackColor = Color().Red;
 			Sleep(1000);
-			server->Visible = false;
+			server->Visible = true;
 		}
 	}
 
