@@ -1,35 +1,30 @@
 #include "Cola.h"
-
 #include <iostream>
+#include <vector>
 using namespace std;
 
 Cola::Cola() : _front(nullptr), _back(nullptr) {
+	Colas.push_back(this);
 }
 
 bool Cola::isEmpty() {
 	return _front == nullptr;
 }
 
-void Cola::push() {
-	NodoCola* nuevo = new NodoCola(0,0, nullptr);
+void Cola::push_back(float _tiempoAtencion) {
+	NodoCola* nuevo = new NodoCola(0,_tiempoAtencion, nullptr);
 
 	if (isEmpty()) {
 		_front = nuevo;
 		_back = nuevo;
 	}
 	else {
-		NodoCola* actual = _front;
-
-		while (actual->getSiguiente() != nullptr) {
-			actual = actual->getSiguiente();
-		}
-
-		actual->setSiguiente(nuevo);
+		_back->setSiguiente(nuevo);
 		_back = nuevo;
 	}
 }
 
-void Cola::pop() {
+void Cola::pop_front() {
 	if (isEmpty())
 		return;
 
@@ -54,10 +49,14 @@ int Cola::size() {
 	int cantidad = 0;
 	NodoCola* actual = _front;
 
-	do {
+	while (actual != nullptr) {
 		cantidad++;
 		actual = actual->getSiguiente();
-	} while (actual != nullptr);
+	}
 
 	return cantidad;
+}
+
+int Cola::getNumeroServidor() {
+	return this->numeroServidor;
 }
