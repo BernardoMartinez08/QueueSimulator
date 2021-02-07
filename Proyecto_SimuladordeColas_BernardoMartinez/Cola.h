@@ -18,14 +18,16 @@ public:
 
 	int getNumeroServidor();
 
-	vector<Cola*> Colas;
+	void movimientoClientes(float);
+
+	void print();
+	vector<Cola*> getColas();
 private:
 	//Primer elemento de la lista
-	NodoCola* _front;
-	NodoCola* _back;
+	NodoCola* primero;
+	NodoCola* ultimo;
 
+	int numeroCola;
 	int numeroServidor;
 };
-
-
 #endif // ! COLA_H

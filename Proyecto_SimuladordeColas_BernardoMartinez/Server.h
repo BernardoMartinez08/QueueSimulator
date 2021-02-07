@@ -11,6 +11,7 @@ using namespace std;
 
 class Server {
 public:
+	Server(Cola*);
 	Server();
 
 	void setCola(Cola*);
@@ -23,6 +24,8 @@ public:
 	int getLongCola();
 	float getTiempoPromedioCola();
 	string getEstado();
+
+	Cola* getCola();
 
 	vector<Server*> Servidores;
 private:

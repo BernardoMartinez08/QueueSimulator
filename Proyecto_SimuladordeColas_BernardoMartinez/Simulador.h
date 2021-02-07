@@ -23,6 +23,11 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 	{
 		Cola* idColas = new Cola();
 		Server* Servidores = new Server();
+	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::Timer^ timerNuevosClientes;
+	private: System::Windows::Forms::Timer^ timerSimulacion;
+
+
 	private: System::Windows::Forms::Button^ btPlay;
 
 	public:
@@ -102,12 +107,14 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Simulador::typeid));
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->txtServer = (gcnew System::Windows::Forms::TextBox());
 			this->picEntrada = (gcnew System::Windows::Forms::PictureBox());
-			this->picSalida = (gcnew System::Windows::Forms::PictureBox());
 			this->txtCliente = (gcnew System::Windows::Forms::TextBox());
+			this->picSalida = (gcnew System::Windows::Forms::PictureBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->numMaxAtencion = (gcnew System::Windows::Forms::NumericUpDown());
@@ -131,6 +138,8 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->progressBar1 = (gcnew System::Windows::Forms::ProgressBar());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->btPlay = (gcnew System::Windows::Forms::Button());
+			this->timerNuevosClientes = (gcnew System::Windows::Forms::Timer(this->components));
+			this->timerSimulacion = (gcnew System::Windows::Forms::Timer(this->components));
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picEntrada))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picSalida))->BeginInit();
@@ -150,8 +159,10 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			// panel1
 			// 
 			this->panel1->AutoScroll = true;
+			this->panel1->Controls->Add(this->textBox1);
 			this->panel1->Controls->Add(this->txtServer);
 			this->panel1->Controls->Add(this->picEntrada);
+			this->panel1->Controls->Add(this->txtCliente);
 			this->panel1->Controls->Add(this->picSalida);
 			this->panel1->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				static_cast<System::Int32>(static_cast<System::Byte>(0)));
@@ -159,6 +170,16 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(963, 429);
 			this->panel1->TabIndex = 0;
+			// 
+			// textBox1
+			// 
+			this->textBox1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(192)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->textBox1->Enabled = false;
+			this->textBox1->Location = System::Drawing::Point(151, 58);
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(23, 20);
+			this->textBox1->TabIndex = 4;
 			// 
 			// txtServer
 			// 
@@ -179,6 +200,16 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->picEntrada->TabIndex = 3;
 			this->picEntrada->TabStop = false;
 			// 
+			// txtCliente
+			// 
+			this->txtCliente->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(192)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->txtCliente->Enabled = false;
+			this->txtCliente->Location = System::Drawing::Point(175, 58);
+			this->txtCliente->Name = L"txtCliente";
+			this->txtCliente->Size = System::Drawing::Size(23, 20);
+			this->txtCliente->TabIndex = 0;
+			// 
 			// picSalida
 			// 
 			this->picSalida->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"picSalida.Image")));
@@ -188,16 +219,6 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->picSalida->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->picSalida->TabIndex = 2;
 			this->picSalida->TabStop = false;
-			// 
-			// txtCliente
-			// 
-			this->txtCliente->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(192)),
-				static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			this->txtCliente->Enabled = false;
-			this->txtCliente->Location = System::Drawing::Point(964, 115);
-			this->txtCliente->Name = L"txtCliente";
-			this->txtCliente->Size = System::Drawing::Size(23, 20);
-			this->txtCliente->TabIndex = 0;
 			// 
 			// label1
 			// 
@@ -461,6 +482,14 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->btPlay->UseVisualStyleBackColor = false;
 			this->btPlay->Click += gcnew System::EventHandler(this, &Simulador::btPlay_Click);
 			// 
+			// timerNuevosClientes
+			// 
+			this->timerNuevosClientes->Tick += gcnew System::EventHandler(this, &Simulador::timerNuevosClientes_Tick);
+			// 
+			// timerSimulacion
+			// 
+			this->timerSimulacion->Tick += gcnew System::EventHandler(this, &Simulador::timerSimulacion_Tick);
+			// 
 			// Simulador
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -469,7 +498,6 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->ClientSize = System::Drawing::Size(987, 689);
 			this->Controls->Add(this->btPlay);
 			this->Controls->Add(this->label6);
-			this->Controls->Add(this->txtCliente);
 			this->Controls->Add(this->progressBar1);
 			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->groupBox2);
@@ -502,40 +530,71 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 		}
 #pragma endregion
 
-	public: void timer() {
-		int segundos = 0, minutos = 0, horas = 0;
+	private: void dibujarPuertas() {
+		//Entrada
+		String^ name1 = "Entrada";
+		String^ imagen1 = " ";
+		imagen1 = "C:/Users/angie/Desktop/ImagenesNodos/ClientesCola/Entrada.png";
 
-		while (true) {
-			segundos++;
 
-			if (segundos == 60) {
-				segundos = 0;
-				minutos++;
-				if (minutos == 60) {
-					minutos = 0;
-					horas++;
-				}
-			}
-			system("cls");
-			cout << "[ " << horas << " : " << minutos << " : " << segundos << " ]\n";
-			Sleep(1000);
-		}
+		System::Windows::Forms::PictureBox^ Entrada = gcnew PictureBox();
+		
+		Entrada->Image = Image::FromFile(imagen1);
+
+		Entrada->Location = System::Drawing::Point(0, 28);
+
+		Entrada->Name = name1;
+		Entrada->Size = System::Drawing::Size(100, 50);
+		Entrada->TabIndex = 3;
+		Entrada->TabStop = false;
+		Entrada->Visible = true;
+
+
+		//Salida 
+		String^ name2 = "Salida";
+		String^ imagen2 = " ";
+		imagen2 = "C:/Users/angie/Desktop/ImagenesNodos/ClientesCola/Salida.png";
+
+
+		System::Windows::Forms::PictureBox^ Salida = gcnew PictureBox();
+
+		Salida->Image = Image::FromFile(imagen2);
+
+		Salida->Location = System::Drawing::Point(860, 28);
+
+		Salida->Name = name2;
+		Salida->Size = System::Drawing::Size(100, 50);
+		Salida->TabIndex = 3;
+		Salida->TabStop = false;
+		Salida->Visible = true;
+
+
+		panel1->Controls->Add(Entrada);
+		panel1->Controls->Add(Salida);
 	}
 
-
 	private: void dibujarServer() {
-		panel1->Controls->Clear();
 		int numeroServer = 0;
 		int YUltimoServer = 17;
+		actualizarEstadoServer();
 
-		for (int i = 0; i < Servidores->Servidores.size(); i++) {
+		for (int i = 1; i < Servidores->Servidores.size(); i++) {
 			String^ name = "Server" + numeroServer;
 
 			System::Windows::Forms::TextBox^ Server = gcnew TextBox();
 			System::Windows::Forms::Label^ LbServer = gcnew Label();
 			Server->Name = name;
 
-			Server->BackColor = System::Drawing::Color::Lime;
+			if(Servidores->Servidores[i]->getEstado() == "ABIERTO")
+				Server->BackColor = System::Drawing::Color::Green;
+			else if (Servidores->Servidores[i]->getEstado() == "SATURADO")
+				Server->BackColor = System::Drawing::Color::Yellow;
+			else if (Servidores->Servidores[i]->getEstado() == "CERRANDO")
+				Server->BackColor = System::Drawing::Color::Orange;
+			else if (Servidores->Servidores[i]->getEstado() == "CERRADO")
+				Server->BackColor = System::Drawing::Color::Red;
+
+
 			Server->Enabled = false;
 			Server->Location = System::Drawing::Point(574, YUltimoServer);
 			Server->Size = System::Drawing::Size(29, 20);
@@ -557,21 +616,22 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 		}
 	}
 
-	private: void dibujarCliente() {
-		panel1->Controls->Clear();
-		panel1->Controls->Add(picSalida);
-		panel1->Controls->Add(picEntrada);
-
+	private: void dibujarCliente(float _time) {
 		int numeroCliente = 0;
+		dibujarPuertas();
+		for (int i = 0; i < idColas->getColas().size(); i++) {
 
-		for (int i = 0; i < idColas->Colas.size(); i++) {
-
-			Cola* colaActual = idColas->Colas[i];
+			Cola* colaActual = idColas->getColas()[i];
 			NodoCola* actual = colaActual->front();
 
 			do {
-				if (actual->getX() >= 956) {
+				if (actual->getX() > 574) {
+					Servidores->Servidores[i]->actualizarClientesAtendidos();
+				}
 
+				colaActual->movimientoClientes(_time);
+				if (actual->getX() >= 956) {
+					idColas->pop_front();
 				}
 				else {
 					String^ name = "Cliente" + numeroCliente;
@@ -597,17 +657,17 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 
 
 						LbCliente->Parent = Cliente;
-						LbCliente->Location = System::Drawing::Point(12.5, 12.5);
+						LbCliente->Location = System::Drawing::Point(6, 4);
 						LbCliente->BackColor = Color().Transparent;
-						LbCliente->ForeColor = Color().MidnightBlue;
+						LbCliente->ForeColor = Color().White;
 						LbCliente->Size = System::Drawing::Size(25, 25);
-						LbCliente->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 20, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+						LbCliente->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 							static_cast<System::Byte>(0)));
 
 						if (actual->getEstado() == "EN COLA")
-							LbCliente->Text = actual->getTiempoCola() + "";
+							LbCliente->Text = (int)actual->getTiempoCola() + "";
 						else if (actual->getEstado() == "EN CAJA")
-							LbCliente->Text = actual->getTiempoCaja() + "";
+							LbCliente->Text = (int)actual->getTiempoCaja() + "";
 						else
 							LbCliente->Text = " ";
 
@@ -617,64 +677,50 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 						actual = actual->getSiguiente();
 					}
 				}
-			} while (actual != nullptr);
+			} while (actual != colaActual->front());
 		}
 	}
 
-	private: void actualizarEstadoServer(TextBox^ server, string estado) {
-		if (estado == "ABIERTO") {
-			server->BackColor = Color().Green;
-			server->Visible = true;
-		}
-		else if (estado == "SATURADO") {
-			server->BackColor = Color().Yellow;
-			server->Visible = true;
-		}
-		else if (estado == "CERRANDO") {
-			server->BackColor = Color().Orange;
-			server->Visible = true;
-		}
-		else if (estado == "CERRADO") {
-			server->BackColor = Color().Red;
-			Sleep(1000);
-			server->Visible = true;
+	private: void actualizarEstadoServer() {
+		for (int i = 1; i < Servidores->Servidores.size(); i++) {
+			Servidores->Servidores[i]->actualizarLongCola();
+
+			if (Servidores->Servidores[i]->getLongCola() >= 15)
+				Servidores->Servidores[i]->actualizarEstado("SATURADO");
+			else if (Servidores->Servidores[i]->getLongCola() < 15)
+				Servidores->Servidores[i]->actualizarEstado("ABIERTO");
+			else if (Servidores->Servidores[i]->getLongCola() == 1)
+				Servidores->Servidores[i]->actualizarEstado("CERRANDO");
+			else if (Servidores->Servidores[i]->getLongCola() <= 0)
+				Servidores->Servidores[i]->actualizarEstado("CERRADO");
+
 		}
 	}
 
 	private: String^ imagenCliente(string estado) {
+		String^ imagen = " ";
 		if (estado == "ENTRANDO") {
-			String^ imagen = " ";
 			imagen = "C:/Users/angie/Desktop/ImagenesNodos/ClientesCola/Llegando.png";
-
-			return imagen;
 		}
 		else if (estado == "EN COLA") {
-			String^ imagen = " ";
 			imagen = "C:/Users/angie/Desktop/ImagenesNodos/ClientesCola/EnCola.png";
-
-			return imagen;
 		}
 		else if (estado == "EN CAJA") {
-			String^ imagen = " ";
 			imagen = "C:/Users/angie/Desktop/ImagenesNodos/ClientesCola/SiendoAtendido.png";
-
-			return imagen;
 		}
 		else if (estado == "SALIENDO") {
-			String^ imagen = " ";
 			imagen = "C:/Users/angie/Desktop/ImagenesNodos/ClientesCola/Saliendo.png";
-
-			return imagen;
 		}
+		return imagen;
 	}
 
 	private: Cola* mejorCola() {
-		Cola* mejorCola = idColas->Colas.front();
+		Cola* mejorCola = idColas->getColas().front();
 
-		if (idColas->Colas.size() != 0) {
-			for (int i = 0; i < idColas->Colas.size(); i++) {
+		if (idColas->getColas().size() != 0) {
+			for (int i = 1; i < idColas->getColas().size(); i++) {
 				if (mejorCola->size() > idColas[i].size())
-					mejorCola = idColas->Colas[i];
+					mejorCola = idColas->getColas()[i];
 			}
 		}
 		return mejorCola;
@@ -683,25 +729,82 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 	private: void crearCajeros() {
 		int numeroCajeros = (int)numCajeros->Value;
 		for (int i = 0; i < numeroCajeros; i++) {
-			Server* nuevo;
-			Servidores->Servidores.push_back(nuevo);
-			Cola* nuevaCola;
-			idColas->Colas.push_back(nuevaCola);
+			Cola* nuevaCola = new Cola();
+			Server* nuevo = new Server(nuevaCola);
 		}
 	}
 
-	private: void nuevosCientes() {
+	private: void nuevosCientes(float _time) {
 		Cola* fila = mejorCola();
-		for (int i = 0; i < 10; i++) {
-			fila->push_back(5);
-		}
-
+		fila->push_back(_time);
 	}
 
 	private: System::Void btPlay_Click(System::Object^ sender, System::EventArgs^ e) {
-		idColas->push_back(6);
-		idColas->push_back(5);
-		dibujarCliente();
+
+		timerNuevosClientes->Start();
+		timerSimulacion->Start();
 	}
-	};
+
+
+		   int tiempoNuevosClientes = 0;
+		   float tiempoCreacion = 0;
+		   bool clienteCreado = true;
+
+private: System::Void timerNuevosClientes_Tick(System::Object^ sender, System::EventArgs^ e) {
+	std::chrono::steady_clock::time_point start;
+	std::chrono::steady_clock::time_point end;
+	start = std::chrono::steady_clock::now();
+
+	if (clienteCreado == true) {
+		int Hasta = (int)numMaxLlegada->Value;
+		int Desde = (int)numMinLlegada->Value;
+
+		srand(time(NULL));
+
+		tiempoCreacion = rand();
+
+		tiempoCreacion = rand() % (Hasta - Desde + 1) + Desde;
+	}
+
+	if (tiempoNuevosClientes >= tiempoCreacion) {
+		int Hasta = (int)numMaxAtencion->Value;
+		int Desde = (int)numMinAtencion->Value;
+
+		srand(time(NULL));
+
+		int timeAtencion = rand();
+
+		timeAtencion = rand() % (Hasta - Desde + 1) + Desde;
+		nuevosCientes(timeAtencion);
+	}
+
+	panel1->Controls->Clear();
+	dibujarPuertas();
+	crearCajeros();
+	end = std::chrono::steady_clock::now();
+	std::chrono::duration<float> duration = end - start;
+	dibujarCliente(duration.count());
+
+	tiempoNuevosClientes = duration.count();
+
+	
+
+	cout << "\n\nTiempo de Ejecucion: " << duration.count();
+}
+
+	   float tiempoSimulacion = 0;
+private: System::Void timerSimulacion_Tick(System::Object^ sender, System::EventArgs^ e) {
+	std::chrono::steady_clock::time_point start;
+	std::chrono::steady_clock::time_point end;
+	start = std::chrono::steady_clock::now();
+
+	if(tiempoSimulacion > (int)numTiempoSimulacion->Value){
+		timerNuevosClientes->Stop();
+		timerSimulacion->Stop();
+	}
+	
+}
+
+
+};
 }

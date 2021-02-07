@@ -4,8 +4,14 @@
 #include <vector>
 using namespace std;
 
-Server::Server() : tiempoPromedioEnCola(0), longCola(0), clientesAtendidos(0),colaClientes(nullptr) {
+Server::Server(Cola* fila) : tiempoPromedioEnCola(0), clientesAtendidos(0) {
+	this->setCola(fila);
+	this->longCola = fila->size();
 	Servidores.push_back(this);
+}
+
+Server::Server() {
+
 }
 
 void Server::setCola(Cola* _colaClientes) {
@@ -53,5 +59,9 @@ string Server::getEstado() {
 
 void Server::actualizarEstado(string _estado) {
 	this->estado = _estado;
+}
+
+Cola* Server::getCola() {
+	return this->colaClientes;
 }
 

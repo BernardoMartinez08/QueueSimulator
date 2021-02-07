@@ -8,8 +8,7 @@ using namespace std;
 
 class NodoCola {
 public:
-	NodoCola(int, int, NodoCola*);
-	NodoCola();
+	NodoCola(int, int, NodoCola*, NodoCola*);
 
 	void setTiempoCola(float);
 	void setTiempoCaja(float);
@@ -24,32 +23,31 @@ public:
 	float getTiempoCaja();
 	float getMaxTiempoEnCaja();
 
-	void movimiento();
+	void movimiento(float);
+
 	int getNumeroCola();
 
-	void setPosiciones(int,int);
-
-	string getEstado();
 	void setEstado(string);
-
+	string getEstado();
 
 	int getX();
 	int getY();
 
+	bool first;
+
 private:
 	NodoCola* siguiente;
 	NodoCola* anterior;
+	float maxTiempoEnCaja;
+	int numeroCola;
 
 	float tiempoEnCola;
 	float tiempoDeAtencion;
-	float maxTiempoEnCaja;
-
 	int posiciones[1][2];
-	int numeroCola;
 	string estado;
 
-	std::chrono::system_clock::time_point start;
-	std::chrono::system_clock::time_point end;
+	std::chrono::steady_clock::time_point start;
+	std::chrono::steady_clock::time_point end;
 };
 
 #endif // !NODO_COLA_H

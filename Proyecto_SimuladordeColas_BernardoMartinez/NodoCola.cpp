@@ -1,13 +1,18 @@
 #include "NodoCola.h"
 
-NodoCola::NodoCola(int _tiempoCola, int _tiempoCaja, NodoCola* _siguiente) : tiempoEnCola(_tiempoCola), tiempoDeAtencion(_tiempoCaja), anterior(nullptr), siguiente(_siguiente), estado("ENTRANDO") {
-	posiciones[0][0] = 0;
-	posiciones[0][1] = 0;
-}
+NodoCola::NodoCola(int _tiempoCaja, int _numeroCola, NodoCola* _siguiente, NodoCola* anterior) {
+	this->maxTiempoEnCaja = _tiempoCaja;
+	this->numeroCola = _numeroCola;
+	this->siguiente = nullptr;
+	this->anterior = nullptr;
 
-NodoCola::NodoCola() : tiempoEnCola(0), tiempoDeAtencion(0), siguiente(nullptr), anterior(nullptr),estado("ENTRANDO") {
+	this->estado = "ENTRANDO";
+
+	this->tiempoEnCola = 0;
+	this->tiempoDeAtencion = 0;
+
 	posiciones[0][0] = 0;
-	posiciones[0][1] = 0;
+	posiciones[0][1] = 58;
 }
 
 void NodoCola::setTiempoCaja(float _tiempoCaja) {
@@ -34,6 +39,14 @@ float NodoCola::getTiempoCola() {
 	return this->tiempoEnCola;
 }
 
+void NodoCola::setMaxTiempoEnCaja(float tiempo) {
+	this->maxTiempoEnCaja = tiempo;
+}
+
+float NodoCola::getMaxTiempoEnCaja() {
+	return this->maxTiempoEnCaja;
+}
+
 NodoCola* NodoCola::getSiguiente() {
 	return this->siguiente;
 }
@@ -42,29 +55,39 @@ NodoCola* NodoCola::getAnterior() {
 	return this->anterior;
 }
 
-void NodoCola::setPosiciones(int X, int Y) {
-	this->posiciones[0][0] = X;
-	this->posiciones[0][1] = Y;
-}
-
 int NodoCola::getNumeroCola() {
 	return this->numeroCola;
 }
 
-void NodoCola::movimiento() {
+void NodoCola::movimiento(float _tiempo) {
+	start = std::chrono::steady_clock::now();
 	if (estado == "ENTRANDO") {
-		if (posiciones[0][0] == 0) {
-			posiciones[0][0]++;
-		}
-		else if (posiciones[0][0] == 102 && numeroCola == 1) {
-			if (posiciones[0][0]++ != anterior->posiciones[0][0])
+		if (posiciones[0][0] == 0 || posiciones[0][0] < 102) {
+			if (first)
+				posiciones[0][0]++;
+			else if ((posiciones[0][0] + 25) < siguiente->posiciones[0][0])
 				posiciones[0][0]++;
 		}
-		else if (posiciones[0][0] == 102 && numeroCola != 1) {
-			if (siguiente == nullptr) {
+		else if (posiciones[0][0] >= 102 && numeroCola == 0) {
+			if (first) {
+				if (posiciones[0][0] < 574)
+					posiciones[0][0]++;
+				else if (posiciones[0][0] == 574)
+					estado = "EN CAJA";
+			}
+			else {
+				if ((posiciones[0][0] + 25) < siguiente->posiciones[0][0])
+					posiciones[0][0]++;
+				else if ((posiciones[0][0] + 25) == siguiente->posiciones[0][0])
+					estado = "EN COLA";
+			}
+
+		}
+		else if (posiciones[0][0] >= 102 && numeroCola != 0) {
+			if (first) {
 				if (posiciones[0][1] != numeroCola * 63)
 					posiciones[0][1]++;
-				else if (posiciones[0][0]++ != 574)
+				else if (posiciones[0][0] < 574)
 					posiciones[0][0]++;
 				else if (posiciones[0][0] == 574)
 					estado = "EN CAJA";
@@ -72,7 +95,7 @@ void NodoCola::movimiento() {
 			else {
 				if (posiciones[0][1] != numeroCola * 63)
 					posiciones[0][1]++;
-				else if (posiciones[0][0]++ != siguiente->posiciones[0][0] - 25)
+				else if (posiciones[0][0]++ < siguiente->posiciones[0][0] - 25)
 					posiciones[0][0]++;
 				else if (posiciones[0][0]++ == siguiente->posiciones[0][0] - 25)
 					estado = "EN COLA";
@@ -83,31 +106,30 @@ void NodoCola::movimiento() {
 		if (siguiente->estado == "SALIENDO")
 			estado = "EN CAJA";
 		else {
-			start = std::chrono::system_clock::now();
-			end = std::chrono::system_clock::now();
+			end = std::chrono::steady_clock::now();
 
-			std::chrono::duration<float, std::milli> duration = end - start;
-			tiempoEnCola += duration.count();
+			std::chrono::duration<float> duration = end - start;
+			tiempoEnCola = (_tiempo + duration.count());
+		
 		}
 	}
 	else if (estado == "EN CAJA") {
-		if (posiciones[0][0] != 574)
+		if (posiciones[0][0] < 574)
 			posiciones[0][0]++;
 		else if (tiempoDeAtencion > maxTiempoEnCaja)
 			estado = "SALIENDO";
 		else {
-			start = std::chrono::system_clock::now();
-			end = std::chrono::system_clock::now();
+			end = std::chrono::steady_clock::now();
 
-			std::chrono::duration<float, std::milli> duration = end - start;
-			tiempoDeAtencion += duration.count();
+			std::chrono::duration<float> duration = end - start;
+			tiempoDeAtencion = (_tiempo + duration.count());
 		}
 	}
 	else if (estado == "SALIENDO") {
-		if (posiciones[0][0] == 574 && posiciones[0][0] < 718)
+		if (posiciones[0][0] == 574 || posiciones[0][0] < 718)
 			posiciones[0][0]++;
-		else if(posiciones[0][1] != 58)
-			posiciones[0][1]++;
+		else if (posiciones[0][1] != 58)
+			posiciones[0][1]--;
 		else if (posiciones[0][1] == 58)
 			posiciones[0][0]++;
 	}
@@ -117,7 +139,7 @@ string NodoCola::getEstado() {
 	return this->estado;
 }
 
-void NodoCola::setEstado(string _estado){
+void NodoCola::setEstado(string _estado) {
 	this->estado = _estado;
 }
 
@@ -127,12 +149,4 @@ int NodoCola::getX() {
 
 int NodoCola::getY() {
 	return posiciones[0][1];
-}
-
-void NodoCola::setMaxTiempoEnCaja(float tiempo) {
-	this->maxTiempoEnCaja = tiempo;
-}
-
-float NodoCola::getMaxTiempoEnCaja() {
-	return this->maxTiempoEnCaja;
 }
