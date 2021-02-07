@@ -22,6 +22,11 @@ public:
 
 	void print();
 	vector<Cola*> getColas();
+
+	float promedioTiempoCola();
+	float promedioTiempoCaja();
+	int totalClientes();
+
 private:
 	//Primer elemento de la lista
 	NodoCola* primero;

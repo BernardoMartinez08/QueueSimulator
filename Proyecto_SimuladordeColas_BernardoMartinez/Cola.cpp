@@ -103,6 +103,62 @@ void Cola::movimientoClientes(float _tiempo) {
 	}
 }
 
+float Cola::promedioTiempoCola() {
+	if (isEmpty()) {
+		return 0;
+	}
+	else {
+		float suma = 0;
+		int cont = 0;
+		float promedioColaTime = 0;
+		NodoCola* actual = primero;
+		do {
+			suma += actual->getTiempoCaja();
+			cont++;
+			actual = actual->getSiguiente();
+		} while (actual != primero);
+
+		promedioColaTime = (suma / cont);
+		return promedioColaTime;
+	}
+}
+
+float Cola::promedioTiempoCaja() {
+	if (isEmpty()) {
+		return 0;
+	}
+	else {
+		float suma = 0;
+		int cont = 0;
+		float promedioCajaTime = 0;
+		NodoCola* actual = primero;
+		do {
+			suma += actual->getTiempoCaja();
+			cont++;
+			actual = actual->getSiguiente();
+		} while (actual != primero);
+
+		promedioCajaTime = (suma / cont);
+		return promedioCajaTime;
+	}
+}
+
+int Cola::totalClientes() {
+	if (isEmpty()) {
+		return 0;
+	}
+	else {
+		int cont = 0;
+		NodoCola* actual = primero;
+		do {
+			cont++;
+			actual = actual->getSiguiente();
+		} while (actual != primero);
+
+		return cont;
+	}
+}
+
 void Cola::print() {
 	if (isEmpty()) {
 		cout << "\nLa lista " << numeroCola << " esta vacia!!!\n";
