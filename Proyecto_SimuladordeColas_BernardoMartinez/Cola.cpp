@@ -137,7 +137,7 @@ float Cola::promedioTiempoCola() {
 		float promedioColaTime = 0;
 		NodoCola* actual = primero;
 		while (actual != nullptr) {
-			suma += actual->getTiempoCaja();
+			suma += actual->getTiempoCola();
 			cont++;
 			actual = actual->getSiguiente();
 		}

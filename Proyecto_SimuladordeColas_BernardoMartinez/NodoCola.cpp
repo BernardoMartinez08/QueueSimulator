@@ -126,6 +126,8 @@ void NodoCola::movimiento() {
 	else if (estado == "EN COLA") {
 		if (anterior->estado == "SALIENDO")
 			estado = "EN CAJA";
+		else if ((posiciones[0][0] + 25) < anterior->posiciones[0][0])
+			posiciones[0][0]++;
 		else {
 			end = std::chrono::steady_clock::now();
 
