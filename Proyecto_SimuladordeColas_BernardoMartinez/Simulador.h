@@ -780,6 +780,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 
 		//cliext::vector<PictureBox^> Pictures;
 		cliext::vector<PictureBox^> ColasImagenes;
+		cliext::vector<TextBox^> ServidoresVector;
 
 	//Funcion Dibujar Cajeros
 	private: void dibujarServer() {
@@ -837,7 +838,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 					colaActual->movimientoClientes();
 					String^ imagen = imagenCliente(actual->getEstado());
 
-					cout << "tamanio: " << ColasImagenes.size() << " Posicion imagen: "<< actual->getNumeroImagen() << endl;
+					//cout << "tamanio: " << ColasImagenes.size() << " Posicion imagen: "<< actual->getNumeroImagen() << endl;
 					System::Windows::Forms::PictureBox^ Cliente = Cliente = ColasImagenes[(actual->getNumeroImagen())];;
 
 					System::Windows::Forms::Label^ LbCliente = gcnew Label();
@@ -860,7 +861,8 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 					else
 						Cliente->Text = " ";
 
-
+					Cliente->Controls->Clear();
+					Cliente->Controls->Add(LbCliente);
 					if (actual->getX() > 574 && actual->getX() < 577) {
 						Servidores->getServers()[i]->actualizarClientesAtendidos();
 						colaActual->putOnCeroTiempoAtencion();
@@ -878,6 +880,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 						idColas->pop_front();
 					}
 				}
+				actual = actual->getSiguiente();
 			}
 		}
 	}
@@ -934,20 +937,6 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 
 
 
-
-	
-
-
-	//private: void eliminarTodo() {
-	//	cout << "IMAGENES: " << Pictures.size();
-	//	for (int i = 0; i < Pictures.size(); i++) {
-	//		//delete Pictures.at(i);
-	//		panel1->Controls->Remove(Pictures.at(i));
-	//		//Pictures.at(i)->Dispose();
-
-	//	}
-	//	Pictures.clear();
-	//}
 
 
 
