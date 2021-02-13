@@ -19,13 +19,15 @@ public:
 	NodoCola* getSiguiente();
 	NodoCola* getAnterior();
 
-	float getTiempoCola();
-	float getTiempoCaja();
+	int getTiempoCola();
+	int getTiempoCaja();
 	float getMaxTiempoEnCaja();
 
-	void movimiento(float);
+	void movimiento();
 
 	int getNumeroCola();
+	int getNumeroImagen();
+	void setNumeroImagen(int);
 
 	void setEstado(string);
 	string getEstado();
@@ -40,6 +42,7 @@ private:
 	NodoCola* anterior;
 	float maxTiempoEnCaja;
 	int numeroCola;
+	int numeroImagen;
 
 	float tiempoEnCola;
 	float tiempoDeAtencion;

@@ -5,7 +5,8 @@ using namespace std;
 
 vector<Cola*> Colas;
 Cola::Cola() : primero(nullptr), ultimo(nullptr) {
-	numeroCola = Colas.size() - 1;
+	numeroCola = Colas.size();
+	auxTiempoAtencion = 0;
 	Colas.push_back(this);
 }
 
@@ -14,7 +15,6 @@ bool Cola::isEmpty() {
 }
 
 vector<Cola*> Cola::getColas() {
-
 	return Colas;
 }
 
@@ -22,42 +22,66 @@ void Cola::push_back(float _tiempoAtencion) {
 	NodoCola* nuevo = new NodoCola(_tiempoAtencion, numeroCola, nullptr, nullptr);
 
 	if (isEmpty()) {
+		//primero = ultimo = nuevo;
+		nuevo->first = true;
 		primero = ultimo = nuevo;
-		primero->setAnterior(ultimo);
-		ultimo->setSiguiente(primero);
-		primero->first = true;
+		primero->setSiguiente(nullptr);
+		primero->setAnterior(nullptr);
+		//primero->setAnterior(ultimo);
+		//ultimo->setSiguiente(primero);
+		//primero->setSiguiente(nullptr);
 	}
 	else {
-		ultimo->setSiguiente(nuevo);
-		nuevo->setAnterior(ultimo);
-		ultimo = nuevo;
+		//ultimo->setSiguiente(nuevo);
+		//nuevo->setAnterior(ultimo);
+		//ultimo = nuevo;
 
-		ultimo->setSiguiente(primero);
-		primero->setAnterior(ultimo);
-		ultimo->first = false;
+		//ultimo->setSiguiente(primero);
+		//primero->setAnterior(ultimo);
+		//ultimo->first = false;
+
+		NodoCola* actual = primero;
+		while (actual->getSiguiente() != nullptr) {
+			actual = actual->getSiguiente();
+		}
+		nuevo->first = false;
+		actual->setSiguiente(nuevo);
+		ultimo = nuevo;
+		ultimo->setAnterior(actual);
+		ultimo->setSiguiente(nullptr);
 	}
 }
 
 void Cola::pop_front() {
-	if (isEmpty()) {
-		cout << "La lista esta vacia!!!";
+	//if (isEmpty()) {
+	//	cout << "La lista esta vacia!!!";
+	//	return;
+	//}
+	//else if (primero == ultimo) {
+	//	delete primero;
+	//	primero = nullptr;
+	//	//primero = ultimo = nullptr;
+	//}
+	//else {
+	//	NodoCola* aux = primero;
+
+	//	primero = primero->getSiguiente();
+	//	//primero->setAnterior(ultimo);
+	//	//ultimo->setSiguiente(primero);
+
+	//	primero->first = true;
+	//	delete aux;
+	//}
+
+	if (isEmpty())
 		return;
-	}
-	else if (primero == ultimo) {
-		delete primero;
 
-		primero = ultimo = nullptr;
-	}
-	else {
-		NodoCola* aux = primero;
+	NodoCola* aux = primero->getSiguiente();
+	delete primero;
+	primero = aux;
 
-		primero = primero->getSiguiente();
-		primero->setAnterior(ultimo);
-		ultimo->setSiguiente(primero);
-
+	if(primero != nullptr)
 		primero->first = true;
-		delete aux;
-	}
 
 }
 
@@ -76,10 +100,10 @@ int Cola::size() {
 	int count = 0;
 
 	NodoCola* actual = primero;
-	do {
+	while (actual != nullptr) {
 		count++;
 		actual = actual->getSiguiente();
-	} while (actual != primero);
+	} 
 
 	return count;
 }
@@ -88,17 +112,17 @@ int Cola::getNumeroServidor() {
 	return this->numeroServidor;
 }
 
-void Cola::movimientoClientes(float _tiempo) {
+void Cola::movimientoClientes() {
 	if (isEmpty()) {
 		return;
 	}
 	else {
 
 		NodoCola* actual = primero;
-		do {
-			actual->movimiento(_tiempo);
+		while (actual != nullptr) {
+			actual->movimiento();
 			actual = actual->getSiguiente();
-		} while (actual != primero);
+		}
 
 	}
 }
@@ -112,11 +136,11 @@ float Cola::promedioTiempoCola() {
 		int cont = 0;
 		float promedioColaTime = 0;
 		NodoCola* actual = primero;
-		do {
+		while (actual != nullptr) {
 			suma += actual->getTiempoCaja();
 			cont++;
 			actual = actual->getSiguiente();
-		} while (actual != primero);
+		}
 
 		promedioColaTime = (suma / cont);
 		return promedioColaTime;
@@ -132,11 +156,11 @@ float Cola::promedioTiempoCaja() {
 		int cont = 0;
 		float promedioCajaTime = 0;
 		NodoCola* actual = primero;
-		do {
-			suma += actual->getTiempoCaja();
+		while (actual != nullptr) {
+			suma += actual->getMaxTiempoEnCaja();
 			cont++;
 			actual = actual->getSiguiente();
-		} while (actual != primero);
+		}
 
 		promedioCajaTime = (suma / cont);
 		return promedioCajaTime;
@@ -150,10 +174,10 @@ int Cola::totalClientes() {
 	else {
 		int cont = 0;
 		NodoCola* actual = primero;
-		do {
+		while (actual != nullptr) {
 			cont++;
 			actual = actual->getSiguiente();
-		} while (actual != primero);
+		}
 
 		return cont;
 	}
@@ -166,14 +190,41 @@ void Cola::print() {
 	else {
 
 		NodoCola* actual = primero;
-		do {
+		while (actual != nullptr) {
 			cout << "Estado: " << actual->getEstado() << "\nMaximo Tiempo En Caja: " << actual->getMaxTiempoEnCaja()
 				<< "\nNumero de Cola: " << actual->getNumeroCola() << "\nTiempo en Cola: " << actual->getTiempoCola()
 				<< "\nTiempo en Caja: " << actual->getTiempoCaja() << "\nPosiciones: (" << actual->getX() << "," << actual->getY()
 				<< ")" << "\nPrimero: " << actual->first;
 			cout << "\n\n";
 			actual = actual->getSiguiente();
-		} while (actual != primero);
+		} 
 
 	}
 }
+
+void Cola::setAuxTiempoAtencion(int _valor) {
+	this->auxTiempoAtencion += _valor;
+}
+
+int Cola::getAuxTiempoAtencion() {
+	return this->auxTiempoAtencion;
+}
+
+void Cola::putOnCeroTiempoAtencion() {
+	this->auxTiempoAtencion = 0;
+}
+
+void Cola::clear() {
+	if (isEmpty()) {
+		return;
+	}
+	else {
+		NodoCola* actual = primero;
+		while (actual != nullptr) {
+			NodoCola* aux = actual->getSiguiente();
+			pop_front();
+			actual = aux;
+		}
+	}
+}
+

@@ -31,12 +31,12 @@ void NodoCola::setAnterior(NodoCola* _anterior) {
 	this->anterior = _anterior;
 }
 
-float NodoCola::getTiempoCaja() {
-	return this->tiempoDeAtencion;
+int NodoCola::getTiempoCaja() {
+	return (int)this->tiempoDeAtencion;
 }
 
-float NodoCola::getTiempoCola() {
-	return this->tiempoEnCola;
+int NodoCola::getTiempoCola() {
+	return (int)this->tiempoEnCola;
 }
 
 void NodoCola::setMaxTiempoEnCaja(float tiempo) {
@@ -59,13 +59,13 @@ int NodoCola::getNumeroCola() {
 	return this->numeroCola;
 }
 
-void NodoCola::movimiento(float _tiempo) {
+void NodoCola::movimiento() {
 	start = std::chrono::steady_clock::now();
 	if (estado == "ENTRANDO") {
 		if (posiciones[0][0] == 0 || posiciones[0][0] < 102) {
 			if (first)
 				posiciones[0][0]++;
-			else if ((posiciones[0][0] + 25) < siguiente->posiciones[0][0])
+			else if ((posiciones[0][0] + 25) < anterior->posiciones[0][0])
 				posiciones[0][0]++;
 		}
 		else if (posiciones[0][0] >= 102 && numeroCola == 0) {
@@ -76,16 +76,26 @@ void NodoCola::movimiento(float _tiempo) {
 					estado = "EN CAJA";
 			}
 			else {
-				if ((posiciones[0][0] + 25) < siguiente->posiciones[0][0])
+				if ((posiciones[0][0] + 25) < anterior->posiciones[0][0]) {
 					posiciones[0][0]++;
-				else if ((posiciones[0][0] + 25) == siguiente->posiciones[0][0])
-					estado = "EN COLA";
+				}
+				else if ((posiciones[0][0] + 25) == anterior->posiciones[0][0]) {
+					if (anterior->getEstado() == "EN COLA")
+						estado = "EN COLA";
+					else if (anterior->getEstado() == "EN CAJA") {
+						estado = "EN COLA";
+					}
+					else if (anterior->getEstado() == "SALIENDO")
+						estado = "EN CAJA";
+				}
+				else
+					posiciones[0][0]++;
 			}
 
 		}
 		else if (posiciones[0][0] >= 102 && numeroCola != 0) {
 			if (first) {
-				if (posiciones[0][1] != numeroCola * 63)
+				if (posiciones[0][1] != (numeroCola * 63))
 					posiciones[0][1]++;
 				else if (posiciones[0][0] < 574)
 					posiciones[0][0]++;
@@ -93,23 +103,34 @@ void NodoCola::movimiento(float _tiempo) {
 					estado = "EN CAJA";
 			}
 			else {
-				if (posiciones[0][1] != numeroCola * 63)
+				if (posiciones[0][1] != (numeroCola * 63))
 					posiciones[0][1]++;
-				else if (posiciones[0][0]++ < siguiente->posiciones[0][0] - 25)
+				else if ((posiciones[0][0] + 25) == anterior->posiciones[0][0]) {
+					if (anterior->getEstado() == "EN COLA")
+						estado = "EN COLA";
+					else if (anterior->getEstado() == "EN CAJA") {
+						estado = "EN COLA";
+					}
+					else if (anterior->getEstado() == "SALIENDO")
+						estado = "EN CAJA";
+				}
+				else
 					posiciones[0][0]++;
-				else if (posiciones[0][0]++ == siguiente->posiciones[0][0] - 25)
-					estado = "EN COLA";
 			}
 		}
 	}
+
+
+
+
 	else if (estado == "EN COLA") {
-		if (siguiente->estado == "SALIENDO")
+		if (anterior->estado == "SALIENDO")
 			estado = "EN CAJA";
 		else {
 			end = std::chrono::steady_clock::now();
 
 			std::chrono::duration<float> duration = end - start;
-			tiempoEnCola = (_tiempo + duration.count());
+			tiempoEnCola += (duration.count()+0.02);
 		
 		}
 	}
@@ -122,11 +143,11 @@ void NodoCola::movimiento(float _tiempo) {
 			end = std::chrono::steady_clock::now();
 
 			std::chrono::duration<float> duration = end - start;
-			tiempoDeAtencion = (_tiempo + duration.count());
+			tiempoDeAtencion += (duration.count() + 0.02);
 		}
 	}
 	else if (estado == "SALIENDO") {
-		if (posiciones[0][0] == 574 || posiciones[0][0] < 718)
+		if (posiciones[0][0] >= 574 || posiciones[0][0] < 718)
 			posiciones[0][0]++;
 		else if (posiciones[0][1] != 58)
 			posiciones[0][1]--;
@@ -144,9 +165,23 @@ void NodoCola::setEstado(string _estado) {
 }
 
 int NodoCola::getX() {
-	return posiciones[0][0];
+	if (posiciones[0][0] >= 0)
+		return posiciones[0][0];
+	else
+		return 0;
 }
 
 int NodoCola::getY() {
-	return posiciones[0][1];
+	if (posiciones[0][0] >= 58)
+		return posiciones[0][1];
+	else
+		return 58;
+}
+
+void NodoCola::setNumeroImagen(int _num) {
+	this->numeroImagen = _num;
+}
+
+int NodoCola::getNumeroImagen() {
+	return this->numeroImagen;
 }

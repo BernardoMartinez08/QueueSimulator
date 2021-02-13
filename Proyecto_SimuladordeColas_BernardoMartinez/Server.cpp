@@ -1,9 +1,10 @@
 #include "Server.h"
-
 #include <iostream>
+#include <string>
 #include <vector>
 using namespace std;
 
+vector<Server*> Servidores;
 Server::Server(Cola* fila) : tiempoPromedioEnCola(0), clientesAtendidos(0) {
 	this->setCola(fila);
 	this->longCola = fila->size();
@@ -11,7 +12,7 @@ Server::Server(Cola* fila) : tiempoPromedioEnCola(0), clientesAtendidos(0) {
 }
 
 Server::Server() {
-
+	
 }
 
 void Server::setCola(Cola* _colaClientes) {
@@ -30,15 +31,18 @@ void Server::actualizarLongCola() {
 
 void Server::actualizarTiempoPromedio() {
 	float sumaTiempos = 0;
-	Cola* colaAux = this->colaClientes;
+	NodoCola* colaAux = colaClientes->front();
 
-	int cont = 0;
-	while(cont < colaAux->size()){
-		sumaTiempos += colaAux->front()->getMaxTiempoEnCaja();
-		colaAux->pop_front();
+	if (colaAux != nullptr) {
+		int cont = 0;
+
+		do {
+			sumaTiempos += colaAux->getMaxTiempoEnCaja();
+			colaAux = colaAux->getSiguiente();
+		} while (colaAux != colaClientes->front());
 	}
 
-	tiempoPromedioEnCola = sumaTiempos;
+	tiempoPromedioEnCola = (sumaTiempos/Servidores.size());
 }
 
 int Server::getClientesAtendidos() {
@@ -63,5 +67,9 @@ void Server::actualizarEstado(string _estado) {
 
 Cola* Server::getCola() {
 	return this->colaClientes;
+}
+
+vector<Server*> Server::getServers() {
+	return Servidores;
 }
 

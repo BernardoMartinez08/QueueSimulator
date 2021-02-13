@@ -27,7 +27,7 @@ public:
 
 	Cola* getCola();
 
-	vector<Server*> Servidores;
+	vector<Server*> getServers();
 private:
 	Cola* colaClientes;
 

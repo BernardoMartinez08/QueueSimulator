@@ -4,7 +4,9 @@
 #include <iostream>
 #include <vector>
 #include "NodoCola.h"
+
 using namespace std;
+
 class Cola {
 public:
 	Cola();
@@ -18,14 +20,19 @@ public:
 
 	int getNumeroServidor();
 
-	void movimientoClientes(float);
+	void movimientoClientes();
 
 	void print();
+	void clear();
 	vector<Cola*> getColas();
 
 	float promedioTiempoCola();
 	float promedioTiempoCaja();
 	int totalClientes();
+
+	int getAuxTiempoAtencion();
+	void setAuxTiempoAtencion(int);
+	void putOnCeroTiempoAtencion();
 
 private:
 	//Primer elemento de la lista
@@ -34,5 +41,7 @@ private:
 
 	int numeroCola;
 	int numeroServidor;
+
+	int auxTiempoAtencion;
 };
 #endif // ! COLA_H
