@@ -22,6 +22,7 @@ public:
 	int getTiempoCola();
 	int getTiempoCaja();
 	float getMaxTiempoEnCaja();
+	float getMaxTiempoEnCola();
 
 	void movimiento();
 
@@ -36,6 +37,7 @@ public:
 	int getY();
 
 	bool first;
+
 
 private:
 	NodoCola* siguiente;

@@ -34,6 +34,9 @@ public:
 	void setAuxTiempoAtencion(int);
 	void putOnCeroTiempoAtencion();
 
+	void actualizarImagenes(int);
+
+	bool abierta;
 private:
 	//Primer elemento de la lista
 	NodoCola* primero;
@@ -42,6 +45,7 @@ private:
 	int numeroCola;
 	int numeroServidor;
 
-	int auxTiempoAtencion;
+	float auxTiempoAtencion;
+
 };
 #endif // ! COLA_H

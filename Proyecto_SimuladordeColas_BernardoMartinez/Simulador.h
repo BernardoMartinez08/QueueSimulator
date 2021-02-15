@@ -789,6 +789,8 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 		int totalClientes = 0;
 		int totalClientesAtendios = 0;
 		int tiempoCajaAux = 0;
+		int YUltimoServer = 27;
+		int tiempoCola = 0;
 
 		//cliext::vector<PictureBox^> Pictures;
 		cliext::vector<PictureBox^> ColasImagenes;
@@ -796,18 +798,69 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 		cliext::vector<TextBox^> ServidoresVector;
 
 	//Funcion Dibujar Cajeros
-	private: void dibujarServer() {
+	private: void dibujarServer(Server* server) {
 		int numeroServer = 0;
-		int YUltimoServer = 27;
 		int sumaAtendidos = 0;
 
 		actualizarEstadoServer();
+
+		int j = 0;
 		for (int i = 0; i < Servidores->getServers().size(); i++) {
-			String^ name = "Server" + numeroServer;
+			if (Servidores->getServers()[i] == server)
+				j = i;
+		}
+		
+		String^ name = "Server" + numeroServer;
+		sumaAtendidos += Servidores->getServers()[j]->getClientesAtendidos();
+
+		System::Windows::Forms::TextBox^ Server = gcnew TextBox();
+		Server->Name = name;
+
+		if (Servidores->getServers()[j]->getEstado() == "ABIERTO") {
+			Server->BackColor = System::Drawing::Color::Green;
+		}
+		else if (Servidores->getServers()[j]->getEstado() == "SATURADO") {
+			Server->BackColor = System::Drawing::Color::Yellow;
+		}
+		else if (Servidores->getServers()[j]->getEstado() == "CERRANDO") {
+			Server->BackColor = System::Drawing::Color::Orange;
+		}
+		else if (Servidores->getServers()[j]->getEstado() == "CERRADO"){
+			Server->BackColor = System::Drawing::Color::Red;
+		}
+			
+
+
+		Server->ReadOnly = true;
+		Server->Location = System::Drawing::Point(574, YUltimoServer);
+		Server->Size = System::Drawing::Size(29, 20);
+		Server->TabIndex = 1;
+		Server->Text = Servidores->getServers()[j]->getCola()->getAuxTiempoAtencion() + "";
+		Server->ForeColor = Color::White;
+
+		numeroServer++;
+		YUltimoServer += 63;
+
+		ServidoresVector.push_back(Server);
+		panel1->Controls->Add(Server);
+
+		totalClientesAtendios = sumaAtendidos;
+	}
+
+
+
+
+
+
+	private: void actualizarServer() {
+		int sumaAtendidos = 0;
+
+		actualizarEstadoServer();
+
+		for (int i = 0; i < Servidores->getServers().size(); i++) {
 			sumaAtendidos += Servidores->getServers()[i]->getClientesAtendidos();
 
-			System::Windows::Forms::TextBox^ Server = gcnew TextBox();
-			Server->Name = name;
+			System::Windows::Forms::TextBox^ Server = ServidoresVector[i];
 
 			if (Servidores->getServers()[i]->getEstado() == "ABIERTO") {
 				Server->BackColor = System::Drawing::Color::Green;
@@ -818,26 +871,20 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			else if (Servidores->getServers()[i]->getEstado() == "CERRANDO") {
 				Server->BackColor = System::Drawing::Color::Orange;
 			}
-			else if (Servidores->getServers()[i]->getEstado() == "CERRADO"){
+			else if (Servidores->getServers()[i]->getEstado() == "CERRADO") {
 				Server->BackColor = System::Drawing::Color::Red;
 			}
-			
 
-
-			Server->ReadOnly = true;
-			Server->Location = System::Drawing::Point(574, YUltimoServer);
-			Server->Size = System::Drawing::Size(29, 20);
-			Server->TabIndex = 1;
 			Server->Text = Servidores->getServers()[i]->getCola()->getAuxTiempoAtencion() + "";
-			Server->ForeColor = Color::White;
-
-			numeroServer++;
-			YUltimoServer += 63;
-			panel1->Controls->Add(Server);
+			
 		}
 
 		totalClientesAtendios = sumaAtendidos;
 	}
+
+
+
+
 
 
 
@@ -848,10 +895,11 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 
 			while (actual != nullptr) {
 				if (actual != nullptr) {
+
 					colaActual->movimientoClientes();
+
 					String^ imagen = imagenCliente(actual->getEstado());
 
-					//cout << "tamanio: " << ColasImagenes.size() << " Posicion imagen: "<< actual->getNumeroImagen() << endl;
 					System::Windows::Forms::PictureBox^ Cliente = ColasImagenes[(actual->getNumeroImagen())];
 
 					System::Windows::Forms::Label^ LbCliente = ColasLabel[(actual->getNumeroImagen())];
@@ -867,30 +915,52 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 					LbCliente->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 						static_cast<System::Byte>(0)));
 
-					if (actual->getEstado() == "EN COLA")
+					if (actual->getEstado() == "EN COLA") {
 						LbCliente->Text = (int)actual->getTiempoCola() + "";
-					else if (actual->getEstado() == "EN CAJA")
+					}
+					else if (actual->getEstado() == "EN CAJA") {
 						LbCliente->Text = (int)actual->getTiempoCaja() + "";
+					}
 					else
-						Cliente->Text = " ";
+						LbCliente->Text = " ";
 
 					//Cliente->Controls->Clear();
 					//Cliente->Controls->Add(LbCliente);
-					if (actual->getX() > 574 && actual->getX() < 577) {
+					if (colaActual->front()->getX() == 575) {
 						Servidores->getServers()[i]->actualizarClientesAtendidos();
 						colaActual->putOnCeroTiempoAtencion();
 					}
+					else {
+						NodoCola* aux = colaActual->front();
+						while (aux != nullptr) {
+							if (aux->first == true && aux->getX() == 575) {
+								Servidores->getServers()[i]->actualizarClientesAtendidos();
+								colaActual->putOnCeroTiempoAtencion();
+								tiempoCola = 0;
+							}
+							else if (aux->first == true && aux->getX() == 574) {
+								colaActual->setAuxTiempoAtencion((int)aux->getTiempoCaja());
+							}
 
-					if (actual->getX() == 574) {
-						if (millisegundos == 1000) {
-							colaActual->setAuxTiempoAtencion(1);
+							aux = aux->getSiguiente();
 						}
 					}
 
+					/*if (actual->getX() == 574) {
+						if (millisegundos >= 1000) {
+							colaActual->setAuxTiempoAtencion(1);
+						}
+					}*/
+
 					if (actual->getX() >= 956) {
-						auto itPos = ColasImagenes.begin() + actual->getNumeroImagen();
-						ColasImagenes.erase(itPos);
-						idColas->pop_front();
+						if (actual->getNumeroImagen() < ColasImagenes.size()) {
+							cliext::vector<PictureBox^>::iterator itPos = ColasImagenes.begin() + actual->getNumeroImagen();
+							cliext::vector<Label^>::iterator itPos2 = ColasLabel.begin() + actual->getNumeroImagen();
+							*ColasImagenes.erase(itPos);
+							*ColasLabel.erase(itPos2);
+							colaActual->actualizarImagenes(actual->getNumeroImagen());
+							idColas->pop_front();
+						}
 					}
 				}
 				actual = actual->getSiguiente();
@@ -1061,12 +1131,24 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 	//Funcion que crea los cajeros con la funcion Cola
 	private: void crearCajeros() {
 		int numeroCajeros = (int)numCajeros->Value;
-		if(idColas->getColas().size() < numeroCajeros){
+
+		if(idColas->getColas().size() <= numeroCajeros){
 			for (int i = idColas->getColas().size(); i <= numeroCajeros; i++) {
 				Cola* nuevaCola = new Cola();
 				Server* nuevo = new Server(nuevaCola);
+				dibujarServer(nuevo);
 			}
 		}
+		/*else if (idColas->getColas().size() > numeroCajeros) {
+			for (int i = idColas->getColas().size()-1; i >= numeroCajeros; i--) {
+				idColas->getColas()[i]->abierta = false;
+				if (idColas->getColas()[i]->totalClientes() == 0) {
+					auto itPos = Servidores->getServers().begin() + idColas->getColas()[i]->getNumeroServidor();
+					Servidores->getServers().erase(itPos);
+					idColas->getColas()[i]->pop_front();
+				}
+			}
+		}*/
 	}
 
 
@@ -1094,7 +1176,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 		txtNameDoc->Enabled = false;
 		lbNameDoc->Enabled = false;
 		btGuardar->Enabled = false;
-
+		YUltimoServer = 27;
 
 		pbSimulation->Value = 0;
 		totalCajasAbiertas = 0;
@@ -1116,7 +1198,10 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 		vaciarColas();
 		int tiempoCajaAux = 0;
 
-		ColasImagenes.clear();
+		//ColasImagenes.clear();
+		//ColasLabel.clear();
+		//ServidoresVector.clear();
+
 		btPlay->Enabled = false;
 		btPause->Enabled = true;
 		timerNuevosClientes->Start();
@@ -1162,8 +1247,8 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			tiempoNuevosClientes = 0;
 		}
 
-		dibujarServer();
 		crearCajeros();
+		actualizarServer();
 		if(totalClientes > 0)
 			movimeintoClientes();
 	

@@ -5,6 +5,7 @@ using namespace std;
 
 vector<Cola*> Colas;
 Cola::Cola() : primero(nullptr), ultimo(nullptr) {
+	abierta = true;
 	numeroCola = Colas.size();
 	auxTiempoAtencion = 0;
 	Colas.push_back(this);
@@ -31,7 +32,7 @@ void Cola::push_back(float _tiempoAtencion) {
 		//ultimo->setSiguiente(primero);
 		//primero->setSiguiente(nullptr);
 	}
-	else {
+	else if(abierta == true){
 		//ultimo->setSiguiente(nuevo);
 		//nuevo->setAnterior(ultimo);
 		//ultimo = nuevo;
@@ -142,7 +143,7 @@ float Cola::promedioTiempoCola() {
 			actual = actual->getSiguiente();
 		}
 
-		promedioColaTime = (suma / cont);
+		promedioColaTime = (suma / (cont));
 		return promedioColaTime;
 	}
 }
@@ -203,7 +204,7 @@ void Cola::print() {
 }
 
 void Cola::setAuxTiempoAtencion(int _valor) {
-	this->auxTiempoAtencion += _valor;
+	this->auxTiempoAtencion = _valor;
 }
 
 int Cola::getAuxTiempoAtencion() {
@@ -225,6 +226,22 @@ void Cola::clear() {
 			pop_front();
 			actual = aux;
 		}
+	}
+}
+
+void Cola::actualizarImagenes(int actualNumero) {
+	if (isEmpty()) {
+		return;
+	}
+	else {
+		NodoCola* actual = primero;
+		while (actual != nullptr) {
+			if (actual->getNumeroImagen() > actualNumero) {
+				actual->setNumeroImagen(actual->getNumeroImagen() - 1);
+			}
+			actual = actual->getSiguiente();
+		}
+
 	}
 }
 

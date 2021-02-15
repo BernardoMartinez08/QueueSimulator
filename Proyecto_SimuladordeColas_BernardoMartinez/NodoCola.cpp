@@ -47,6 +47,10 @@ float NodoCola::getMaxTiempoEnCaja() {
 	return this->maxTiempoEnCaja;
 }
 
+float NodoCola::getMaxTiempoEnCola() {
+	return this->tiempoEnCola;
+}
+
 NodoCola* NodoCola::getSiguiente() {
 	return this->siguiente;
 }
@@ -137,6 +141,7 @@ void NodoCola::movimiento() {
 		}
 	}
 	else if (estado == "EN CAJA") {
+		first = true;
 		if (posiciones[0][0] < 574)
 			posiciones[0][0]++;
 		else if (tiempoDeAtencion > maxTiempoEnCaja)
