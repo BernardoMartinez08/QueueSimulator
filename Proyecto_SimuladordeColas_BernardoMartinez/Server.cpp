@@ -26,7 +26,7 @@ void Server::actualizarClientesAtendidos() {
 }
 
 void Server::actualizarLongCola() {
-	this->longCola = this->colaClientes->size();
+	this->longCola = this->colaClientes->getEnCola();
 }
 
 void Server::actualizarTiempoPromedio() {

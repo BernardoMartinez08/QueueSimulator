@@ -138,12 +138,18 @@ float Cola::promedioTiempoCola() {
 		float promedioColaTime = 0;
 		NodoCola* actual = primero;
 		while (actual != nullptr) {
-			suma += actual->getTiempoCola();
-			cont++;
+			if (actual->getEstado() == "EN COLA") {
+				suma += actual->getTiempoCola();
+				cont++;
+			}
 			actual = actual->getSiguiente();
 		}
 
-		promedioColaTime = (suma / (cont));
+		if (cont > 0)
+			promedioColaTime = (suma / (cont));
+		else
+			promedioColaTime = 0;
+
 		return promedioColaTime;
 	}
 }
@@ -158,12 +164,18 @@ float Cola::promedioTiempoCaja() {
 		float promedioCajaTime = 0;
 		NodoCola* actual = primero;
 		while (actual != nullptr) {
-			suma += actual->getMaxTiempoEnCaja();
-			cont++;
+			if (actual->getEstado() == "EN CAJA") {
+				suma += actual->getMaxTiempoEnCaja();
+				cont++;
+			}
 			actual = actual->getSiguiente();
 		}
 
-		promedioCajaTime = (suma / cont);
+		if (cont > 0)
+			promedioCajaTime = (suma / cont);
+		else
+			promedioCajaTime = 0;
+
 		return promedioCajaTime;
 	}
 }
@@ -177,6 +189,25 @@ int Cola::totalClientes() {
 		NodoCola* actual = primero;
 		while (actual != nullptr) {
 			cont++;
+			actual = actual->getSiguiente();
+		}
+
+		return cont;
+	}
+}
+
+int Cola::getEnCola() {
+	if (isEmpty()) {
+		return 0;
+	}
+	else {
+		int cont = 0;
+		NodoCola* actual = primero;
+		while (actual != nullptr) {
+			if(actual->getEstado() == "EN COLA")
+				cont++;
+			else if (actual->getEstado() == "EN CAJA")
+				cont++;
 			actual = actual->getSiguiente();
 		}
 

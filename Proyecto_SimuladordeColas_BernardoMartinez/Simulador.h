@@ -62,6 +62,17 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ TiempoCola;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ numClientes;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ atendidos;
+	private: System::Windows::Forms::GroupBox^ groupBox4;
+	private: System::Windows::Forms::Label^ lbAtendidos;
+
+	private: System::Windows::Forms::Label^ lbPromedio;
+
+
+
+	private: System::Windows::Forms::Label^ lbEnCola;
+
+	private: System::Windows::Forms::Label^ lbCajero;
+
 
 
 
@@ -141,21 +152,29 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 		{
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Simulador::typeid));
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle9 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle10 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle11 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle6 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle7 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle8 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle12 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle20 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle21 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle22 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle13 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle14 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle15 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle16 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle17 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle18 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle19 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->picEntrada = (gcnew System::Windows::Forms::PictureBox());
 			this->picSalida = (gcnew System::Windows::Forms::PictureBox());
 			this->dataEstadisticas = (gcnew System::Windows::Forms::DataGridView());
+			this->tiempoSimu = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->cajasAbiertas = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->cajaCerrada = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->tiempoLlegada = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->tiempoAtencion = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->TiempoCola = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->numClientes = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->atendidos = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->sIMULADORToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->eSTADISTICASToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -188,14 +207,11 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->lbNameDoc = (gcnew System::Windows::Forms::Label());
 			this->lbFinal = (gcnew System::Windows::Forms::Label());
 			this->btPause = (gcnew System::Windows::Forms::Button());
-			this->tiempoSimu = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->cajasAbiertas = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->cajaCerrada = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->tiempoLlegada = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->tiempoAtencion = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->TiempoCola = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->numClientes = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->atendidos = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
+			this->lbAtendidos = (gcnew System::Windows::Forms::Label());
+			this->lbPromedio = (gcnew System::Windows::Forms::Label());
+			this->lbEnCola = (gcnew System::Windows::Forms::Label());
+			this->lbCajero = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picEntrada))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->picSalida))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataEstadisticas))->BeginInit();
@@ -211,6 +227,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->groupBox3->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numCajeros))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numTiempoSimulacion))->BeginInit();
+			this->groupBox4->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// panel1
@@ -250,49 +267,121 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->dataEstadisticas->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::AllCells;
 			this->dataEstadisticas->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
 			this->dataEstadisticas->BackgroundColor = System::Drawing::Color::LightBlue;
-			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Control;
-			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle12->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle12->BackColor = System::Drawing::SystemColors::Control;
+			dataGridViewCellStyle12->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::WindowText;
-			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->dataEstadisticas->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle12->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle12->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle12->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle12->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dataEstadisticas->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
 			this->dataEstadisticas->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataEstadisticas->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(8) {
 				this->tiempoSimu,
 					this->cajasAbiertas, this->cajaCerrada, this->tiempoLlegada, this->tiempoAtencion, this->TiempoCola, this->numClientes, this->atendidos
 			});
-			dataGridViewCellStyle9->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle9->BackColor = System::Drawing::SystemColors::Window;
-			dataGridViewCellStyle9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle20->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle20->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle20->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			dataGridViewCellStyle9->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)),
+			dataGridViewCellStyle20->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)),
 				static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			dataGridViewCellStyle9->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle9->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle9->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-			this->dataEstadisticas->DefaultCellStyle = dataGridViewCellStyle9;
+			dataGridViewCellStyle20->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle20->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle20->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dataEstadisticas->DefaultCellStyle = dataGridViewCellStyle20;
 			this->dataEstadisticas->EnableHeadersVisualStyles = false;
 			this->dataEstadisticas->Location = System::Drawing::Point(12, 57);
 			this->dataEstadisticas->Name = L"dataEstadisticas";
 			this->dataEstadisticas->ReadOnly = true;
-			dataGridViewCellStyle10->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle10->BackColor = System::Drawing::SystemColors::Control;
-			dataGridViewCellStyle10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle21->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle21->BackColor = System::Drawing::SystemColors::Control;
+			dataGridViewCellStyle21->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			dataGridViewCellStyle10->ForeColor = System::Drawing::SystemColors::WindowText;
-			dataGridViewCellStyle10->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle10->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle10->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->dataEstadisticas->RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
-			dataGridViewCellStyle11->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			this->dataEstadisticas->RowsDefaultCellStyle = dataGridViewCellStyle11;
+			dataGridViewCellStyle21->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle21->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle21->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle21->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dataEstadisticas->RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
+			dataGridViewCellStyle22->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			this->dataEstadisticas->RowsDefaultCellStyle = dataGridViewCellStyle22;
 			this->dataEstadisticas->Size = System::Drawing::Size(958, 428);
 			this->dataEstadisticas->TabIndex = 5;
 			this->dataEstadisticas->Visible = false;
 			this->dataEstadisticas->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Simulador::dataGridView1_CellContentClick);
+			// 
+			// tiempoSimu
+			// 
+			dataGridViewCellStyle13->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			dataGridViewCellStyle13->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->tiempoSimu->DefaultCellStyle = dataGridViewCellStyle13;
+			this->tiempoSimu->HeaderText = L"Tiempo Simulacion";
+			this->tiempoSimu->Name = L"tiempoSimu";
+			this->tiempoSimu->ReadOnly = true;
+			this->tiempoSimu->Width = 111;
+			// 
+			// cajasAbiertas
+			// 
+			dataGridViewCellStyle14->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			this->cajasAbiertas->DefaultCellStyle = dataGridViewCellStyle14;
+			this->cajasAbiertas->HeaderText = L"Cajas Abiertas";
+			this->cajasAbiertas->Name = L"cajasAbiertas";
+			this->cajasAbiertas->ReadOnly = true;
+			this->cajasAbiertas->Width = 91;
+			// 
+			// cajaCerrada
+			// 
+			dataGridViewCellStyle15->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			this->cajaCerrada->DefaultCellStyle = dataGridViewCellStyle15;
+			this->cajaCerrada->HeaderText = L"Cajas Cerradas";
+			this->cajaCerrada->Name = L"cajaCerrada";
+			this->cajaCerrada->ReadOnly = true;
+			this->cajaCerrada->Width = 95;
+			// 
+			// tiempoLlegada
+			// 
+			dataGridViewCellStyle16->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			this->tiempoLlegada->DefaultCellStyle = dataGridViewCellStyle16;
+			this->tiempoLlegada->HeaderText = L"Tiempo Promedio Llegada";
+			this->tiempoLlegada->Name = L"tiempoLlegada";
+			this->tiempoLlegada->ReadOnly = true;
+			this->tiempoLlegada->Width = 141;
+			// 
+			// tiempoAtencion
+			// 
+			dataGridViewCellStyle17->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			this->tiempoAtencion->DefaultCellStyle = dataGridViewCellStyle17;
+			this->tiempoAtencion->HeaderText = L"Tiempo Promedio Atencion";
+			this->tiempoAtencion->Name = L"tiempoAtencion";
+			this->tiempoAtencion->ReadOnly = true;
+			this->tiempoAtencion->Width = 145;
+			// 
+			// TiempoCola
+			// 
+			this->TiempoCola->HeaderText = L"Tiempo Promedio en Cola";
+			this->TiempoCola->Name = L"TiempoCola";
+			this->TiempoCola->ReadOnly = true;
+			this->TiempoCola->Width = 121;
+			// 
+			// numClientes
+			// 
+			dataGridViewCellStyle18->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			this->numClientes->DefaultCellStyle = dataGridViewCellStyle18;
+			this->numClientes->HeaderText = L"Total Clientes";
+			this->numClientes->Name = L"numClientes";
+			this->numClientes->ReadOnly = true;
+			this->numClientes->Width = 88;
+			// 
+			// atendidos
+			// 
+			dataGridViewCellStyle19->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+			this->atendidos->DefaultCellStyle = dataGridViewCellStyle19;
+			this->atendidos->HeaderText = L"Total Clientes Atendidos";
+			this->atendidos->Name = L"atendidos";
+			this->atendidos->ReadOnly = true;
+			this->atendidos->Width = 133;
 			// 
 			// menuStrip1
 			// 
@@ -304,7 +393,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(986, 24);
+			this->menuStrip1->Size = System::Drawing::Size(994, 24);
 			this->menuStrip1->TabIndex = 4;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -348,7 +437,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->groupBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->groupBox1->ForeColor = System::Drawing::Color::RoyalBlue;
-			this->groupBox1->Location = System::Drawing::Point(12, 500);
+			this->groupBox1->Location = System::Drawing::Point(8, 500);
 			this->groupBox1->Name = L"groupBox1";
 			this->groupBox1->Size = System::Drawing::Size(453, 107);
 			this->groupBox1->TabIndex = 4;
@@ -445,7 +534,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->groupBox2->ForeColor = System::Drawing::Color::RoyalBlue;
-			this->groupBox2->Location = System::Drawing::Point(12, 613);
+			this->groupBox2->Location = System::Drawing::Point(8, 613);
 			this->groupBox2->Name = L"groupBox2";
 			this->groupBox2->Size = System::Drawing::Size(453, 59);
 			this->groupBox2->TabIndex = 8;
@@ -502,7 +591,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->groupBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->groupBox3->ForeColor = System::Drawing::Color::RoyalBlue;
-			this->groupBox3->Location = System::Drawing::Point(471, 500);
+			this->groupBox3->Location = System::Drawing::Point(467, 500);
 			this->groupBox3->Name = L"groupBox3";
 			this->groupBox3->Size = System::Drawing::Size(221, 107);
 			this->groupBox3->TabIndex = 8;
@@ -511,7 +600,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			// 
 			// numCajeros
 			// 
-			this->numCajeros->Location = System::Drawing::Point(145, 69);
+			this->numCajeros->Location = System::Drawing::Point(141, 69);
 			this->numCajeros->Name = L"numCajeros";
 			this->numCajeros->Size = System::Drawing::Size(45, 22);
 			this->numCajeros->TabIndex = 5;
@@ -519,7 +608,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			// 
 			// numTiempoSimulacion
 			// 
-			this->numTiempoSimulacion->Location = System::Drawing::Point(146, 28);
+			this->numTiempoSimulacion->Location = System::Drawing::Point(141, 28);
 			this->numTiempoSimulacion->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000, 0, 0, 0 });
 			this->numTiempoSimulacion->Name = L"numTiempoSimulacion";
 			this->numTiempoSimulacion->Size = System::Drawing::Size(65, 22);
@@ -544,7 +633,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->label11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label11->ForeColor = System::Drawing::Color::DarkBlue;
-			this->label11->Location = System::Drawing::Point(7, 32);
+			this->label11->Location = System::Drawing::Point(6, 32);
 			this->label11->Name = L"label11";
 			this->label11->Size = System::Drawing::Size(133, 13);
 			this->label11->TabIndex = 0;
@@ -552,7 +641,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			// 
 			// pbSimulation
 			// 
-			this->pbSimulation->Location = System::Drawing::Point(471, 649);
+			this->pbSimulation->Location = System::Drawing::Point(467, 649);
 			this->pbSimulation->Name = L"pbSimulation";
 			this->pbSimulation->Size = System::Drawing::Size(221, 23);
 			this->pbSimulation->TabIndex = 9;
@@ -563,7 +652,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label6->ForeColor = System::Drawing::Color::DarkBlue;
-			this->label6->Location = System::Drawing::Point(515, 633);
+			this->label6->Location = System::Drawing::Point(511, 633);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(140, 13);
 			this->label6->TabIndex = 8;
@@ -576,7 +665,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 				static_cast<System::Byte>(0)));
 			this->btPlay->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			this->btPlay->Location = System::Drawing::Point(795, 502);
+			this->btPlay->Location = System::Drawing::Point(875, 505);
 			this->btPlay->Name = L"btPlay";
 			this->btPlay->Size = System::Drawing::Size(108, 43);
 			this->btPlay->TabIndex = 10;
@@ -595,9 +684,9 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->btGuardar->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btGuardar->ForeColor = System::Drawing::Color::Blue;
-			this->btGuardar->Location = System::Drawing::Point(771, 645);
+			this->btGuardar->Location = System::Drawing::Point(849, 633);
 			this->btGuardar->Name = L"btGuardar";
-			this->btGuardar->Size = System::Drawing::Size(169, 27);
+			this->btGuardar->Size = System::Drawing::Size(145, 36);
 			this->btGuardar->TabIndex = 11;
 			this->btGuardar->Text = L"GUARDAR ESTADISTICAS";
 			this->btGuardar->UseVisualStyleBackColor = false;
@@ -609,9 +698,9 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->txtNameDoc->Enabled = false;
 			this->txtNameDoc->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->txtNameDoc->Location = System::Drawing::Point(771, 601);
+			this->txtNameDoc->Location = System::Drawing::Point(854, 586);
 			this->txtNameDoc->Name = L"txtNameDoc";
-			this->txtNameDoc->Size = System::Drawing::Size(169, 21);
+			this->txtNameDoc->Size = System::Drawing::Size(132, 21);
 			this->txtNameDoc->TabIndex = 12;
 			this->txtNameDoc->Text = L"Estadistics";
 			this->txtNameDoc->Visible = false;
@@ -620,7 +709,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			// lbNameDoc
 			// 
 			this->lbNameDoc->AutoSize = true;
-			this->lbNameDoc->Location = System::Drawing::Point(792, 625);
+			this->lbNameDoc->Location = System::Drawing::Point(851, 610);
 			this->lbNameDoc->Name = L"lbNameDoc";
 			this->lbNameDoc->Size = System::Drawing::Size(148, 13);
 			this->lbNameDoc->TabIndex = 13;
@@ -631,7 +720,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			// 
 			this->lbFinal->AutoSize = true;
 			this->lbFinal->ForeColor = System::Drawing::Color::Maroon;
-			this->lbFinal->Location = System::Drawing::Point(545, 675);
+			this->lbFinal->Location = System::Drawing::Point(541, 675);
 			this->lbFinal->Name = L"lbFinal";
 			this->lbFinal->Size = System::Drawing::Size(70, 13);
 			this->lbFinal->TabIndex = 15;
@@ -645,7 +734,7 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->btPause->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btPause->ForeColor = System::Drawing::Color::Red;
-			this->btPause->Location = System::Drawing::Point(795, 548);
+			this->btPause->Location = System::Drawing::Point(875, 554);
 			this->btPause->Name = L"btPause";
 			this->btPause->Size = System::Drawing::Size(108, 26);
 			this->btPause->TabIndex = 16;
@@ -653,87 +742,81 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->btPause->UseVisualStyleBackColor = false;
 			this->btPause->Click += gcnew System::EventHandler(this, &Simulador::btPause_Click);
 			// 
-			// tiempoSimu
+			// groupBox4
 			// 
-			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular,
-				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->tiempoSimu->DefaultCellStyle = dataGridViewCellStyle2;
-			this->tiempoSimu->HeaderText = L"Tiempo Simulacion";
-			this->tiempoSimu->Name = L"tiempoSimu";
-			this->tiempoSimu->ReadOnly = true;
-			this->tiempoSimu->Width = 111;
+			this->groupBox4->Controls->Add(this->lbAtendidos);
+			this->groupBox4->Controls->Add(this->lbPromedio);
+			this->groupBox4->Controls->Add(this->lbEnCola);
+			this->groupBox4->Controls->Add(this->lbCajero);
+			this->groupBox4->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->groupBox4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->groupBox4->ForeColor = System::Drawing::Color::RoyalBlue;
+			this->groupBox4->Location = System::Drawing::Point(697, 499);
+			this->groupBox4->Name = L"groupBox4";
+			this->groupBox4->Size = System::Drawing::Size(151, 173);
+			this->groupBox4->TabIndex = 9;
+			this->groupBox4->TabStop = false;
+			this->groupBox4->Text = L"Informacion";
 			// 
-			// cajasAbiertas
+			// lbAtendidos
 			// 
-			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			this->cajasAbiertas->DefaultCellStyle = dataGridViewCellStyle3;
-			this->cajasAbiertas->HeaderText = L"Cajas Abiertas";
-			this->cajasAbiertas->Name = L"cajasAbiertas";
-			this->cajasAbiertas->ReadOnly = true;
-			this->cajasAbiertas->Width = 91;
+			this->lbAtendidos->AutoSize = true;
+			this->lbAtendidos->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lbAtendidos->ForeColor = System::Drawing::Color::DarkBlue;
+			this->lbAtendidos->Location = System::Drawing::Point(3, 128);
+			this->lbAtendidos->Name = L"lbAtendidos";
+			this->lbAtendidos->Size = System::Drawing::Size(67, 13);
+			this->lbAtendidos->TabIndex = 7;
+			this->lbAtendidos->Text = L"Atendidos:";
 			// 
-			// cajaCerrada
+			// lbPromedio
 			// 
-			dataGridViewCellStyle4->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			this->cajaCerrada->DefaultCellStyle = dataGridViewCellStyle4;
-			this->cajaCerrada->HeaderText = L"Cajas Cerradas";
-			this->cajaCerrada->Name = L"cajaCerrada";
-			this->cajaCerrada->ReadOnly = true;
-			this->cajaCerrada->Width = 95;
+			this->lbPromedio->AutoSize = true;
+			this->lbPromedio->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lbPromedio->ForeColor = System::Drawing::Color::DarkBlue;
+			this->lbPromedio->Location = System::Drawing::Point(3, 96);
+			this->lbPromedio->Name = L"lbPromedio";
+			this->lbPromedio->Size = System::Drawing::Size(111, 13);
+			this->lbPromedio->TabIndex = 6;
+			this->lbPromedio->Text = L"Promedio En Cola:";
 			// 
-			// tiempoLlegada
+			// lbEnCola
 			// 
-			dataGridViewCellStyle5->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			this->tiempoLlegada->DefaultCellStyle = dataGridViewCellStyle5;
-			this->tiempoLlegada->HeaderText = L"Tiempo Promedio Llegada";
-			this->tiempoLlegada->Name = L"tiempoLlegada";
-			this->tiempoLlegada->ReadOnly = true;
-			this->tiempoLlegada->Width = 141;
+			this->lbEnCola->AutoSize = true;
+			this->lbEnCola->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lbEnCola->ForeColor = System::Drawing::Color::DarkBlue;
+			this->lbEnCola->Location = System::Drawing::Point(4, 68);
+			this->lbEnCola->Name = L"lbEnCola";
+			this->lbEnCola->Size = System::Drawing::Size(55, 13);
+			this->lbEnCola->TabIndex = 2;
+			this->lbEnCola->Text = L"En Cola:";
 			// 
-			// tiempoAtencion
+			// lbCajero
 			// 
-			dataGridViewCellStyle6->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			this->tiempoAtencion->DefaultCellStyle = dataGridViewCellStyle6;
-			this->tiempoAtencion->HeaderText = L"Tiempo Promedio Atencion";
-			this->tiempoAtencion->Name = L"tiempoAtencion";
-			this->tiempoAtencion->ReadOnly = true;
-			this->tiempoAtencion->Width = 145;
-			// 
-			// TiempoCola
-			// 
-			this->TiempoCola->HeaderText = L"Tiempo Promedio en Cola";
-			this->TiempoCola->Name = L"TiempoCola";
-			this->TiempoCola->ReadOnly = true;
-			this->TiempoCola->Width = 121;
-			// 
-			// numClientes
-			// 
-			dataGridViewCellStyle7->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			this->numClientes->DefaultCellStyle = dataGridViewCellStyle7;
-			this->numClientes->HeaderText = L"Total Clientes";
-			this->numClientes->Name = L"numClientes";
-			this->numClientes->ReadOnly = true;
-			this->numClientes->Width = 88;
-			// 
-			// atendidos
-			// 
-			dataGridViewCellStyle8->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-			this->atendidos->DefaultCellStyle = dataGridViewCellStyle8;
-			this->atendidos->HeaderText = L"Total Clientes Atendidos";
-			this->atendidos->Name = L"atendidos";
-			this->atendidos->ReadOnly = true;
-			this->atendidos->Width = 133;
+			this->lbCajero->AutoSize = true;
+			this->lbCajero->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lbCajero->ForeColor = System::Drawing::Color::DarkBlue;
+			this->lbCajero->Location = System::Drawing::Point(6, 26);
+			this->lbCajero->Name = L"lbCajero";
+			this->lbCajero->Size = System::Drawing::Size(77, 24);
+			this->lbCajero->TabIndex = 0;
+			this->lbCajero->Text = L"Cajero:";
 			// 
 			// Simulador
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::LightBlue;
-			this->ClientSize = System::Drawing::Size(986, 701);
+			this->ClientSize = System::Drawing::Size(994, 701);
+			this->Controls->Add(this->groupBox4);
+			this->Controls->Add(this->dataEstadisticas);
 			this->Controls->Add(this->btPause);
 			this->Controls->Add(this->lbFinal);
-			this->Controls->Add(this->dataEstadisticas);
 			this->Controls->Add(this->lbNameDoc);
 			this->Controls->Add(this->txtNameDoc);
 			this->Controls->Add(this->btGuardar);
@@ -772,6 +855,8 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			this->groupBox3->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numCajeros))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numTiempoSimulacion))->EndInit();
+			this->groupBox4->ResumeLayout(false);
+			this->groupBox4->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -876,6 +961,18 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 			}
 
 			Server->Text = Servidores->getServers()[i]->getCola()->getAuxTiempoAtencion() + "";
+
+			if (Server->Focused) {
+				lbCajero->Text = "Cajero: " + (i+1);
+
+				int longCola = 0;
+				if ((Servidores->getServers()[i]->getLongCola() != 0))
+					longCola = (Servidores->getServers()[i]->getLongCola() - 1);
+
+				lbEnCola->Text = "En Cola: " + longCola;
+				lbAtendidos->Text = "Atendidos: " + Servidores->getServers()[i]->getClientesAtendidos();
+				lbPromedio->Text = "Promedio En Cola: " + Servidores->getServers()[i]->getCola()->promedioTiempoCola();
+			}
 			
 		}
 
@@ -938,8 +1035,23 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 								colaActual->putOnCeroTiempoAtencion();
 								tiempoCola = 0;
 							}
+
 							else if (aux->first == true && aux->getX() == 574) {
 								colaActual->setAuxTiempoAtencion((int)aux->getTiempoCaja());
+							}
+
+							else if (aux->getX() > 956) {
+								cout << "ya se va de aqui\n";
+								if (aux->getNumeroImagen() < ColasImagenes.size()) {
+									cout << "Entro aqui\n";
+									int pos = aux->getNumeroImagen();
+									//cliext::vector<PictureBox^>::iterator itPos = ColasImagenes.begin() - aux->getNumeroImagen();
+									//cliext::vector<Label^>::iterator itPos2 = ColasLabel.begin() - aux->getNumeroImagen();
+									ColasImagenes.erase(ColasImagenes.begin() + pos);
+									ColasLabel.erase(ColasLabel.begin() + pos);
+									idColas->pop_front();
+									colaActual->actualizarImagenes(pos);
+								}
 							}
 
 							aux = aux->getSiguiente();
@@ -952,16 +1064,6 @@ namespace ProyectoSimuladordeColasBernardoMartinez {
 						}
 					}*/
 
-					if (actual->getX() >= 956) {
-						if (actual->getNumeroImagen() < ColasImagenes.size()) {
-							cliext::vector<PictureBox^>::iterator itPos = ColasImagenes.begin() + actual->getNumeroImagen();
-							cliext::vector<Label^>::iterator itPos2 = ColasLabel.begin() + actual->getNumeroImagen();
-							*ColasImagenes.erase(itPos);
-							*ColasLabel.erase(itPos2);
-							colaActual->actualizarImagenes(actual->getNumeroImagen());
-							idColas->pop_front();
-						}
-					}
 				}
 				actual = actual->getSiguiente();
 			}

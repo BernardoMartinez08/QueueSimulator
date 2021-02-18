@@ -36,6 +36,8 @@ public:
 
 	void actualizarImagenes(int);
 
+	int getEnCola();
+
 	bool abierta;
 private:
 	//Primer elemento de la lista

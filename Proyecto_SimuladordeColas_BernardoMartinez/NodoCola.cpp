@@ -89,8 +89,10 @@ void NodoCola::movimiento() {
 					else if (anterior->getEstado() == "EN CAJA") {
 						estado = "EN COLA";
 					}
-					else if (anterior->getEstado() == "SALIENDO")
+					else if (anterior->getEstado() == "SALIENDO") {
 						estado = "EN CAJA";
+					
+					}
 				}
 				else
 					posiciones[0][0]++;
